@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meu Portfólio</title>
+  <!-- Link para o CSS externo -->
+  <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+  <header>
+    <h1>Maria Rayssa Silva Andrade</h1>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sobre">
+      <h2>Sobre Mim</h2>
+      <p>Olá! Eu sou uma desenvolvedora web apaixonada por criar sites bonitos e funcionais. Tenho experiência em HTML, CSS e JavaScript. Gosto de experiênciar coisas novas.</p>
+    </section>
+
+<section id="projetos">
+  <h2>Projetos</h2>
+    <div class="projeto-card">
+    <img src="https://via.placeholder.com/400x200?text=Projeto+1" alt="Imagem do Projeto 1" />
+    <h3>Projeto 1</h3>
+    <p>Descrição rápida do projeto 1. Tecnologias us5adas: HTML, CSS, JS.</p>
+    <a href="https://www.exemplo-projeto1.com" target="_blank">Ver site</a>
+  </div>
+
+  <div class="projeto-card">
+    <img src="https://via.placeholder.com/400x200?text=Projeto+2" alt="Imagem do Projeto 2" />
+    <h3>Projeto 2</h3>
+    <p>Descrição rápida do projeto 2. Tecnologias usadas: React, API REST.</p>
+    <a href="https://www.exemplo-projeto2.com" target="_blank">Ver site</a>
+  </div>
+
+  <div class="projeto-card">
+    <img src="https://via.placeholder.com/400x200?text=Projeto+3" alt="Imagem do Projeto 3" />
+    <h3>Projeto 3</h3>
+    <p>Descrição rápida do projeto 3. Tecnologias usadas: Node.js, Express.</p>
+    <a href="https://www.exemplo-projeto3.com" target="_blank">Ver site</a>
+  </div>
+</section>
+<section id="contato">
+  <h2>Contato</h2>
+
+<div id="mensagem-sucesso" style="display:none; color: green; margin-bottom: 1em;">
+  Obrigado! Sua mensagem foi enviada com sucesso.
+</div>
+
+  <form id="form-contato" action="https://formspree.io/f/xpwrajze" method="POST" >
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" minlength="3" required placeholder="Digite seu nome completo" />
+
+    <label for="email">Email</label>
+    <div class="tooltip-wrapper">
+      <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+      <span class="tooltip" id="email-tooltip">Email inválido</span>
+    </div>
+
+    <label for="mensagem">Mensagem</label>
+    <textarea id="mensagem" name="mensagem" minlength="10" required placeholder="Escreva uma mensagem detalhada..."></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('form-contato');
+    const sucesso = document.getElementById('mensagem-sucesso');
+    const emailInput = document.getElementById('email');
+    const tooltip = document.getElementById('email-tooltip');
+
+    // Validação em tempo real do email
+    emailInput.addEventListener('input', function () {
+      const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+      if (!emailValido && emailInput.value !== "") {
+        tooltip.style.display = 'block';
+        emailInput.classList.add('invalid');
+      } else {
+        tooltip.style.display = 'none';
+        emailInput.classList.remove('invalid');
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = emailInput.value.trim();
+      const mensagem = document.getElementById('mensagem').value.trim();
+
+      if (nome.length < 3) {
+        alert("O nome deve ter no mínimo 3 caracteres.");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        tooltip.style.display = 'block';
+        emailInput.classList.add('invalid');
+        return;
+      }
+
+      if (mensagem.length < 10) {
+        alert("A mensagem deve ter no mínimo 10 caracteres.");
+        return;
+      }
+
+      const dados = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: dados,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          sucesso.style.display = 'block';
+          form.reset();
+          tooltip.style.display = 'none';
+          emailInput.classList.remove('invalid');
+        } else {
+          alert("Erro no envio. Tente novamente.");
+        }
+      }).catch(() => {
+        alert("Erro de conexão. Verifique sua internet.");
+      });
+    });
+  </script>
+</section>
+
+
+
+
+   
+
+
+  </main>
+
+  <footer>
+    <p>© 2025 Maria Rayssa Silva Andrade. Todos os direitos reservados.</p>
+  </footer>
+
+
+
